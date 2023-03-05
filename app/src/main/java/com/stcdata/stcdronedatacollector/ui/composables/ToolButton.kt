@@ -12,11 +12,12 @@ import androidx.compose.ui.graphics.painter.Painter
 @Composable
 fun ToolButton(
     image: Painter,
+    contentDescription: String,
     isChecked: Boolean = false,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
 ) {
     FloatingActionButton(onClick, modifier.alpha(0.69f), containerColor = if (isChecked) Color.White else FloatingActionButtonDefaults.containerColor) {
-        Image(painter = image,contentDescription = "")
+        Image(painter = image, contentDescription = contentDescription)
     }
 }

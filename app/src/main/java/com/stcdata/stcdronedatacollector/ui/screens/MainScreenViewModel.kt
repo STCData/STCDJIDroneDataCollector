@@ -23,7 +23,7 @@ class MainScreenViewModel(application: Application, drone: Drone) : AndroidViewM
     // Holds our view state which the UI collects via [state]
     private val _state = MutableStateFlow(MainScreenUiState())
 
-    private val mapIsScene = MutableStateFlow(false)
+    private val mapIsScene = MutableStateFlow(true)
 
     val state: StateFlow<MainScreenUiState>
         get() = _state

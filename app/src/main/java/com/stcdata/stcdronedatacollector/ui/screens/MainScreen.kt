@@ -76,6 +76,7 @@ fun MainScreenContent(
             Column(modifier = Modifier.align(Alignment.Bottom)) {
                 ToolButton(
                     image = painterResource(R.drawable.tb_map_mode),
+                    contentDescription = "map mode",
                     isChecked = state.mapIsScene,
                     onClick = onTBMapMode
                 )
