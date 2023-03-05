@@ -81,7 +81,7 @@ jobs:
 
       - name: Prepare demo files
         run: |
-          mdkir build_gh_pages
+          mkdir build_gh_pages
           cd build_gh_pages
           adb pull '/sdcard/clickAndWaitForWhile.mp4'
 
