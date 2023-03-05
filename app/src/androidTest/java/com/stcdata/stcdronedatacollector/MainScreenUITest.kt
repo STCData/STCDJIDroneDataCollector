@@ -11,10 +11,12 @@ import org.junit.Before
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Until
+import com.stcdata.stcdronedatacollector.tools.TestDataCollectionRule
 import kotlinx.coroutines.delay
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.notNullValue
 import org.junit.Assert
+import org.junit.Rule
 import org.junit.Test
 import java.util.concurrent.TimeUnit
 
@@ -24,6 +26,8 @@ private const val LAUNCH_TIMEOUT = 5000L
 @RunWith(AndroidJUnit4::class)
 @SdkSuppress(minSdkVersion = 18)
 class MainScreenUITest {
+    @Rule @JvmField
+    val testDataCollectionRule = TestDataCollectionRule()
 
     private lateinit var device: UiDevice
     @Test
