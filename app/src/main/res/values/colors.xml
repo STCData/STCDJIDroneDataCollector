@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="tb_icon_fill_color">#FFBB86FC</color>
+    <color name="controller_icon_fill_color">#FF6200EE</color>
+    <color name="topbar_icon_fill_color">#9C27B0</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
