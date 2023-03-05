@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalTime::class)
+
 package com.stcdata.stcdronedatacollector.models
 
 import android.app.Application
@@ -11,6 +13,9 @@ import kotlinx.coroutines.launch
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.random.Random
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.ExperimentalTime
 
 
 fun randomNumber(
@@ -44,8 +49,8 @@ fun randomVerticalSpeedFlow() : Flow<Double>  = flow {
 
 fun randomHorizontalSpeedFlow() : Flow<Double>  = flow {
     while (true) {
-        val minRange = 0.0001
-        val maxRange = 0.0002
+        val minRange = 0.0003
+        val maxRange = 0.0007
         emit(randomNumber(
             zeroProbability = 0.2,
             positiveRangeProbability = 0.8,
@@ -140,8 +145,12 @@ class Drone {
                 altitude = state.altitude + verticalSpeed)
             println("h $horizontalSpeed v $verticalSpeed  $state")
             emit(state)
-            delay(500)
+            delay(stateUpdateDuration.seconds)
         }
+    }
+
+    companion object {
+        val stateUpdateDuration: Double = 0.3
     }
 
 

@@ -3,6 +3,7 @@ package com.stcdata.stcdronedatacollector
 import android.location.Location
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import com.arcgismaps.geometry.Point
@@ -10,7 +11,11 @@ import com.arcgismaps.geometry.SpatialReference
 import com.arcgismaps.mapping.*
 import com.arcgismaps.mapping.view.Camera
 import com.arcgismaps.mapping.view.SceneView
+import com.stcdata.stcdronedatacollector.models.Drone
 import com.stcdata.stcdronedatacollector.ui.tools.findActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 @Composable
@@ -22,6 +27,8 @@ fun OverlaySceneView(
     altitude: Double,
     heading: Double
     ) {
+    val coroutineScope = rememberCoroutineScope()
+
     // Adds view to Compose
     AndroidView(
         modifier = Modifier.fillMaxSize(), // Occupy the max size in the Compose UI tree
@@ -46,7 +53,12 @@ fun OverlaySceneView(
             val cameraLocation = Point(location.latitude, location.longitude, altitude, SpatialReference.wgs84())
             // Camera(location, heading, pitch, roll)
             val camera = Camera(cameraLocation, heading, pitch, roll)
-            view. setViewpoint(Viewpoint(location.latitude, location.longitude, 1.0, camera))
+            coroutineScope.launch {
+                view.setViewpointAnimated(Viewpoint(location.latitude, location.longitude, 1.0, camera),
+                    Drone.stateUpdateDuration.toFloat()
+                )
+
+            }
         }
     )
 }
