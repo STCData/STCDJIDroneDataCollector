@@ -3,3 +3,4 @@ Android drone control application that logs telemetry, video stream, recognized 
 
 uses ESRi sdk to visualize a random simulated flight. provides beautiful user interface - all indicators, no user input.
 
+## [Automated UI Tests Videos](https://stcdata.github.io/STCDroneDataCollector/)
