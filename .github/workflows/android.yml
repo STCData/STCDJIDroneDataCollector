@@ -22,5 +22,19 @@ jobs:
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+      
     - name: Build with Gradle
       run: ./gradlew build
+      
+    - name: Run Android tests
+      run: ./gradlew test
+
+    - name: Run Android tests
+      run: ./gradlew connectedAndroidTest
+
+    - name: Prepare demo files
+      run: |
+        mdkir build_gh_pages
+        cd build_gh_pages
+        adb pull '/sdcard/clickAndWaitForWhile.mp4'
+        
