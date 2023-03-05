@@ -8,50 +8,58 @@ on:
 
 jobs:
   build:
-
     runs-on: macos-latest
-
+    strategy:
+      matrix:
+        api-level: [21, 23, 29]
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 11
-      uses: actions/setup-java@v3
-      with:
-        java-version: 11
-        distribution: 'adopt'
-        cache: 'gradle'
-        
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+      - name: checkout
+        uses: actions/checkout@v3
 
-    - name: Build with Gradle
-      run: ./gradlew build
-      
-    - name: Run tests
-      run: ./gradlew test
+      - name: Gradle cache
+        uses: gradle/gradle-build-action@v2
 
+      - name: AVD cache
+        uses: actions/cache@v3
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-${{ matrix.api-level }}
 
-    - name: Run connected tests
-      uses: ReactiveCircus/android-emulator-runner@v2
-      with:
-        api-level: 30
-        target: google_apis
-        arch: x86_64
-        script: ./gradlew connectedCheck
+      - name: create AVD and generate snapshot for caching
+        if: steps.avd-cache.outputs.cache-hit != 'true'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          force-avd-creation: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: false
+          script: echo "Generated AVD snapshot for caching."
 
+      - name: run tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          force-avd-creation: false
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
+          script: ./gradlew connectedCheck
 
-    - name: Run Android tests
-      run: ./gradlew connectedAndroidTest
+      - name: Run Android tests
+        run: ./gradlew connectedAndroidTest
 
-    - name: Prepare demo files
-      run: |
-        mdkir build_gh_pages
-        cd build_gh_pages
-        adb pull '/sdcard/clickAndWaitForWhile.mp4'
+      - name: Prepare demo files
+        run: |
+          mdkir build_gh_pages
+          cd build_gh_pages
+          adb pull '/sdcard/clickAndWaitForWhile.mp4'
 
-    - name: Upload GH Pages
-      uses: actions/upload-pages-artifact@v1
-      with:
-        path: build_gh_pages
+      - name: Upload GH Pages
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: build_gh_pages
 
   # Deploy job
   deploy:
