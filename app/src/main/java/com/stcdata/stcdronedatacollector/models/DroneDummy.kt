@@ -140,7 +140,7 @@ class Drone {
                 altitude = state.altitude + verticalSpeed)
             println("h $horizontalSpeed v $verticalSpeed  $state")
             emit(state)
-            delay(200)
+            delay(500)
         }
     }
 

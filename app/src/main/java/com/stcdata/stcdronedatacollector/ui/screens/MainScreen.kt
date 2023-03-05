@@ -45,6 +45,10 @@ fun MainScreenContent(
 ) {
 
     Box {
+
+        VisibilityAndEnability(visible = !state.mapIsScene) {
+            OverlayMapView(location = state.droneState.location())
+        }
         VisibilityAndEnability(visible = state.mapIsScene) {
                 OverlaySceneView(
                     location = state.droneState.location(),
@@ -53,9 +57,7 @@ fun MainScreenContent(
                     altitude = state.droneState.altitude,
                     heading = state.droneState.heading)
         }
-        VisibilityAndEnability(visible = !state.mapIsScene) {
-                OverlayMapView(location = state.droneState.location())
-        }
+
 
 
 
