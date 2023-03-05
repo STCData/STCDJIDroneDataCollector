@@ -85,7 +85,7 @@ data class DroneState(
     val speed: Float = 0f,
     val roll: Double = 0.0,
     val pitch: Double = 0.0,
-    val battery: Float = 0f,
+    val battery: Float = 1.0f,
 
     ) {
 
@@ -142,7 +142,8 @@ class Drone {
             state = state.copy(
                 latitude = latitude,
                 longitude = longitude,
-                altitude = state.altitude + verticalSpeed)
+                altitude = state.altitude + verticalSpeed,
+                battery = state.battery - 0.001f)
             println("h $horizontalSpeed v $verticalSpeed  $state")
             emit(state)
             delay(stateUpdateDuration.seconds)
