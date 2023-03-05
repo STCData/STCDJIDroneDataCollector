@@ -82,6 +82,13 @@ jobs:
             cd build_gh_pages
             adb pull '/sdcard/clickAndWaitForWhile.mp4'
 
+      - name: Build site
+        run: |
+          ls -R build_gh_pages/
+          .github/tools/staticsitebuilder build_gh_pages/
+          ls -R build_gh_pages/
+
+
       - name: Upload GH Pages
         uses: actions/upload-pages-artifact@v1
         with:
