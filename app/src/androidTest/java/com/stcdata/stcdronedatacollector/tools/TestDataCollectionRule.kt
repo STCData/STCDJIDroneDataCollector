@@ -8,13 +8,12 @@ import org.junit.rules.TestName
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 import java.io.IOException
-
-
+import java.util.concurrent.TimeUnit
 
 
 class TestDataCollectionRule : TestWatcher() {
     val uiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-    val SC_OUTPUT = "/sdcard/my_sc/"
+    val SC_OUTPUT = "/sdcard/"
 
     fun screenCaptureFilename(testName: String): String {
        return "$SC_OUTPUT${testName}.mp4"
@@ -50,6 +49,7 @@ class TestDataCollectionRule : TestWatcher() {
         object : Thread() {
             override fun run() {
                 super.run()
+                TimeUnit.SECONDS.sleep(13)
                 val filename = screenCaptureFilename(description.methodName)
                 print("SCREENRECORDING '$filename' is recording.")
                 startScreenRecord(filename)
