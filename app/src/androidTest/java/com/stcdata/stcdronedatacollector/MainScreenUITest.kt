@@ -36,19 +36,24 @@ class MainScreenUITest {
         Assert.assertEquals(PACKAGE_NAME, appContext.packageName)
         val buttonName = "map mode"
         TimeUnit.SECONDS.sleep(5)
-        device.findObject(By.clickable(true)).click()
+        device.findObject(By.clickable(true)).let {
+            it.click()
+        }
         TimeUnit.SECONDS.sleep(2)
-        device.findObject(By.clickable(true)).click()
+        device.findObject(By.clickable(true)).let {
+            it.click()
+        }
         TimeUnit.SECONDS.sleep(10)
-        device.findObject(By.clickable(true)).click()
+        device.findObject(By.clickable(true)).let {
+            it.click()
+        }
         TimeUnit.SECONDS.sleep(3)
-        device.findObject(By.clickable(true)).click()
+        device.findObject(By.clickable(true)).let {
+            it.click()
+        }
         TimeUnit.SECONDS.sleep(10)
-
-
-
-
     }
+    
     @Before
     fun startMainActivityFromHomeScreen() {
         // Initialize UiDevice instance
