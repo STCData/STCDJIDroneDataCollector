@@ -86,8 +86,8 @@ jobs:
           disable-animations: false
           disable-linux-hw-accel: false
           script: |
-            adb uninstall "com.stcdata.stcdronedatacollector.test"
-            adb uninstall "com.stcdata.stcdronedatacollector"
+            adb uninstall "com.stcdata.stcdronedatacollector.test" || (echo "error" > /dev/null)
+            adb uninstall "com.stcdata.stcdronedatacollector" || (echo "error" > /dev/null)
             ./gradlew connectedCheck
             ./gradlew connectedAndroidTest
             mkdir build_gh_pages
