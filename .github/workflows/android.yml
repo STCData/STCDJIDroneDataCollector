@@ -60,7 +60,7 @@ jobs:
           arch: x86
           profile: Galaxy Nexus
           force-avd-creation: false
-          emulator-options:  -gpu on -noaudio -no-boot-anim -camera-back none
+          emulator-options:  -gpu auto -noaudio -no-boot-anim -camera-back none
           disable-animations: false
           channel: canary
           script: echo "Generated AVD snapshot for caching."
@@ -73,7 +73,7 @@ jobs:
           arch: x86
           profile: Galaxy Nexus
           force-avd-creation: false
-          emulator-options: -no-snapshot-save -gpu on -noaudio -no-boot-anim -camera-back none
+          emulator-options: -no-snapshot-save -gpu auto -noaudio -no-boot-anim -camera-back none
           channel: canary
           script: |
             ./gradlew connectedCheck
