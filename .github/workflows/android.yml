@@ -76,6 +76,7 @@ jobs:
           emulator-options: -no-snapshot-save -gpu auto -noaudio -no-boot-anim -camera-back none
           channel: canary
           script: |
+            adb uninstall "com.stcdata.stcdronedatacollector.test"
             ./gradlew connectedCheck
             ./gradlew connectedAndroidTest
             mkdir build_gh_pages
