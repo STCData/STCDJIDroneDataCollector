@@ -49,7 +49,7 @@ class TestDataCollectionRule : TestWatcher() {
         object : Thread() {
             override fun run() {
                 super.run()
-                TimeUnit.SECONDS.sleep(13)
+                TimeUnit.SECONDS.sleep(1)
                 val filename = screenCaptureFilename(description.methodName)
                 print("SCREENRECORDING '$filename' is recording.")
                 startScreenRecord(filename)
